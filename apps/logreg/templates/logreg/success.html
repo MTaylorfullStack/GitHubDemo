@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Success!</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            background-color: black;
+            color: white;
+        }
+        .rainbow-text {
+        margin: 0;
+        background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+        }
+        #logout{
+            display: inline-block;
+            margin-left: 210px;
+        }
+        #header{
+            display: block;
+            width: 1000px;
+            margin: 25px;
+        }
+        #post{
+            display: block;
+            margin: 25px;
+            background-color: grey;
+            min-height: 200px;
+            width: 1000px;
+            text-align: center;
+        }
+        #messages{
+            display: block;
+            margin: 25px;
+            background-color: grey;
+            min-height: 200px;
+            width: 1000px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="header">
+        
+        <h1 class="rainbow-text">{{request.session.user}} has successfully logged in or registered!</h1>
+        <a id="logout" href='/'><button>Logout</button></a>
+
+    </div>
+
+    <div id='post'>
+            <form method='POST' action='/add_message'>
+                {% csrf_token %}
+            Post a message: <input type='text' name='message'><br>
+            <input type='submit' value="Post Message"><br>
+            </form>
+
+    </div>
+
+    <div id="messages">
+        {% for message in all_messages %}
+        {{message.message}}<br>
+        posted by: {{message.poster.name}}<br>
+        {{message.user_who_liked.count}}
+        
+        <a href='/like/{{message.id}}'>Like Message</a><br>
+        
+        
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+
+    
+</body>
+</html>

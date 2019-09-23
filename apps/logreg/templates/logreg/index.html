@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            background-color: lightcoral;
+        }
+        div{
+            display: inline-block;
+            vertical-align: top;
+            margin: 145px;
+            background-color: lightcyan;
+            height: 350px;
+            width: 300px;
+            padding-left: 30px;
+            border-radius: 25px;
+        }
+        #valid{
+            text-align: center;
+            display: block;
+            margin-left: 200px;
+            margin-top: 50px;
+            font-size: 24pt;
+            height: 50px;
+            width: 900px;
+            font-size: 16pt;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <div id='valid'>
+        {% if messages %}
+        <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </div>    
+    {% endif %}
+    
+    
+    <div>
+
+    <h1>Login</h1>
+    <form action='/login' method="POST">
+        {% csrf_token %}
+        <p>Name:</p><input type='text' name='name'><br>
+        <p>Password:</p><input type='text' name='password'><br><br>
+        <input type='submit' value='Submit'>
+    </form>
+    </div>
+
+    <div>
+    <h1>Register</h1>
+
+
+    <form action='/register' method="POST">
+        {% csrf_token %}
+        <p>Name:</p><input type='text' name='name'><br>
+        <p>Password:</p><input type='text' name='password'><br>
+        <p>Confirm Password:</p><input type='text' name='confirm_password'><br><br>
+        <input type='submit' value='Submit'>
+    </form>
+    </div>
+    
+</body>
+</html>
